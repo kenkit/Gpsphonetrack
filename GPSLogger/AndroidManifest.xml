@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <supports-screens android:smallScreens="true"
                       android:normalScreens="true" android:largeScreens="true"
@@ -133,6 +134,13 @@
         </receiver>
 
         <receiver android:name="com.mendhak.gpslogger.senders.AlarmReceiver"/>
+		
+		<receiver android:name=".BatteryLevelReceiver">
+				<intent-filter>
+				  <action android:name="android.intent.action.ACTION_BATTERY_LOW"/>
+				  <action android:name="android.intent.action.ACTION_BATTERY_OKAY"/>
+				  </intent-filter>
+				</receiver>
     </application>
 
 

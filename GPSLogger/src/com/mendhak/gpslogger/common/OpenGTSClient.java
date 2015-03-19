@@ -18,7 +18,18 @@
 package com.mendhak.gpslogger.common;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.os.BatteryManager;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+
+import android.telephony.NeighboringCellInfo;
+import android.telephony.PhoneStateListener;
+import android.telephony.ServiceState;
+import android.telephony.TelephonyManager;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -30,15 +41,21 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import com.mendhak.gpslogger.GpsMainActivity;
+
+
+import static android.app.Activity.*;
 
 /**
  * OpenGTS Client
  *
  * @author Francisco Reynoso <franole @ gmail.com>
  */
+
+
 public class OpenGTSClient
 {
-
+    private int batteryPct;
     private Context applicationContext;
     private IActionListener callback;
     private String server;
@@ -84,16 +101,35 @@ public class OpenGTSClient
 
             httpClient = new AsyncHttpClient();
 
+
+
+
+
             for (Location loc : locations)
             {
                 RequestParams params = new RequestParams();
-                params.put("id", id);
-                params.put("code", "0xF020");
-                params.put("gprmc", OpenGTSClient.GPRMCEncode(loc));
+
+                String phonenumber = GpsMainActivity.tm.getLine1Number();
+                float baterry = getBatteryLevel();
+
+                params.put("host",id );
+                params.put("phone",phonenumber);
+                params.put("active", "1");
+               // params.put("gprmc", OpenGTSClient.GPRMCEncode(loc));
+                params.put("Model",getDeviceName());
+
+
+
+
+
+                params.put("batterystatus", String.valueOf(baterry));
+                params.put("lat",String.valueOf(loc.getLatitude()));
+                params.put("lng",String.valueOf(loc.getLongitude()));
                 params.put("alt", String.valueOf(loc.getAltitude()));
 
 
                 Utilities.LogDebug("Sending URL " + url + " with params " + params.toString());
+
                 httpClient.get(applicationContext, url.toString(), params, new MyAsyncHttpResponseHandler(this));
             }
         }
@@ -129,6 +165,7 @@ public class OpenGTSClient
         }
         return url.toString();
     }
+
 
 
     private class MyAsyncHttpResponseHandler extends AsyncHttpResponseHandler
@@ -263,6 +300,40 @@ public class OpenGTSClient
     {
         // Google "meters per second to knots"
         return mps * 1.94384449;
+    }
+    public static float getBatteryLevel() {
+
+        int level = GpsMainActivity.batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = GpsMainActivity.batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+        // Error checking that probably isn't needed but I added just in case.
+        if(level == -1 || scale == -1) {
+            return 50.0f;
+        }
+
+        return ((float)level / (float)scale) * 100.0f;
+    }
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+
+    private String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 
 }

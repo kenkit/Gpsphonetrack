@@ -114,30 +114,26 @@ public class Utilities
     {
 
         Utilities.LogInfo("Getting preferences");
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
+        //SharedPreferences prefs = PreferenceManager
+            //    .getDefaultSharedPreferences(context);
 
-        AppSettings.setUseImperial(prefs.getBoolean("useImperial", false));
-        AppSettings.setUseSatelliteTime(prefs.getBoolean("satellite_time",
-                false));
+        AppSettings.setUseImperial(false);
+        AppSettings.setUseSatelliteTime(false);
 
-        AppSettings.setLogToKml(prefs.getBoolean("log_kml", false));
+        AppSettings.setLogToKml(false);
 
-        AppSettings.setLogToGpx(prefs.getBoolean("log_gpx", false));
+        AppSettings.setLogToGpx(false);
 
-        AppSettings.setLogToPlainText(prefs.getBoolean("log_plain_text", false));
+        AppSettings.setLogToPlainText(false);
 
-        AppSettings.setLogToOpenGTS(prefs.getBoolean("log_opengts", false));
+        AppSettings.setLogToOpenGTS(true);
 
-        AppSettings.setShowInNotificationBar(prefs.getBoolean(
-                "show_notification", true));
+        AppSettings.setShowInNotificationBar(true);
 
-        AppSettings.setPreferCellTower(prefs.getBoolean("prefer_celltower",
-                false));
+        AppSettings.setPreferCellTower(false);
 
 
-        String minimumDistanceString = prefs.getString(
-                "distance_before_logging", "0");
+        String minimumDistanceString =("0");
 
         if (minimumDistanceString != null && minimumDistanceString.length() > 0)
         {
@@ -149,8 +145,7 @@ public class Utilities
             AppSettings.setMinimumDistanceInMeters(0);
         }
 
-        String minimumAccuracyString = prefs.getString(
-                "accuracy_before_logging", "0");
+        String minimumAccuracyString = ("0");
 
         if (minimumAccuracyString != null && minimumAccuracyString.length() > 0)
         {
@@ -172,8 +167,7 @@ public class Utilities
         }
 
 
-        String minimumSecondsString = prefs.getString("time_before_logging",
-                "60");
+        String minimumSecondsString = ("60");
 
         if (minimumSecondsString != null && minimumSecondsString.length() > 0)
         {
@@ -185,8 +179,7 @@ public class Utilities
             AppSettings.setMinimumSeconds(60);
         }
 
-        String retryIntervalString = prefs.getString("retry_time",
-                "60");
+        String retryIntervalString =("60");
 
         if (retryIntervalString != null && retryIntervalString.length() > 0)
         {
@@ -198,8 +191,7 @@ public class Utilities
              AppSettings.setRetryInterval(60);
         }
 
-        AppSettings.setNewFileCreation(prefs.getString("new_file_creation",
-                "onceaday"));
+        AppSettings.setNewFileCreation("onceaday");
 
         if (AppSettings.getNewFileCreation().equals("onceaday"))
         {
@@ -210,46 +202,21 @@ public class Utilities
             AppSettings.setNewFileOnceADay(false);
         }
 
-        AppSettings.setAutoSendEnabled(prefs.getBoolean("autosend_enabled", false));
+        AppSettings.setAutoSendEnabled(true);
 
-        AppSettings.setAutoEmailEnabled(prefs.getBoolean("autoemail_enabled",
-                false));
+        AppSettings.setAutoEmailEnabled(false);
 
-        if (Float.valueOf(prefs.getString("autosend_frequency", "0")) >= 8f)
-        {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("autosend_frequency", "8");
-            editor.commit();
-        }
 
-        AppSettings.setAutoSendDelay(Float.valueOf(prefs.getString(
-                "autosend_frequency", "0")));
+        AppSettings.setAutoSendDelay(Float.valueOf("3"));
 
-        AppSettings.setSmtpServer(prefs.getString("smtp_server", ""));
-        AppSettings.setSmtpPort(prefs.getString("smtp_port", "25"));
-        AppSettings.setSmtpSsl(prefs.getBoolean("smtp_ssl", true));
-        AppSettings.setSmtpUsername(prefs.getString("smtp_username", ""));
-        AppSettings.setSmtpPassword(prefs.getString("smtp_password", ""));
-        AppSettings.setAutoEmailTargets(prefs.getString("autoemail_target", ""));
-        AppSettings.setDebugToFile(prefs.getBoolean("debugtofile", false));
-        AppSettings.setShouldSendZipFile(prefs.getBoolean("autosend_sendzip", true));
-        AppSettings.setSmtpFrom(prefs.getString("smtp_from", ""));
-        AppSettings.setOpenGTSEnabled(prefs.getBoolean("opengts_enabled", false));
-        AppSettings.setAutoOpenGTSEnabled(prefs.getBoolean("autoopengts_enabled", false));
-        AppSettings.setOpenGTSServer(prefs.getString("opengts_server", ""));
-        AppSettings.setOpenGTSServerPort(prefs.getString("opengts_server_port", ""));
-        AppSettings.setOpenGTSServerCommunicationMethod(prefs.getString("opengts_server_communication_method", ""));
-        AppSettings.setOpenGTSServerPath(prefs.getString("autoopengts_server_path", ""));
-        AppSettings.setOpenGTSDeviceId(prefs.getString("opengts_device_id", ""));
 
-        AppSettings.setAutoFtpEnabled(prefs.getBoolean("autoftp_enabled",false));
-        AppSettings.setFtpServerName(prefs.getString("autoftp_server",""));
-        AppSettings.setFtpUsername(prefs.getString("autoftp_username",""));
-        AppSettings.setFtpPassword(prefs.getString("autoftp_password",""));
-        AppSettings.setFtpPort(Integer.valueOf(prefs.getString("autoftp_port", "21")));
-        AppSettings.setFtpUseFtps(prefs.getBoolean("autoftp_useftps", false));
-        AppSettings.setFtpProtocol(prefs.getString("autoftp_ssltls",""));
-        AppSettings.setFtpImplicit(prefs.getBoolean("autoftp_implicit", false));
+        AppSettings.setOpenGTSEnabled(true);
+        AppSettings.setAutoOpenGTSEnabled(true);
+        AppSettings.setOpenGTSServer("digital-dragons.net");
+        AppSettings.setOpenGTSServerPort("80");
+        AppSettings.setOpenGTSServerCommunicationMethod("HTTP/GET");
+        AppSettings.setOpenGTSServerPath("/gps/GpsTracker/Updatelocation.php?");
+        AppSettings.setOpenGTSDeviceId("root");
 
     }
 
@@ -284,6 +251,8 @@ public class Utilities
     public static void MsgBox(String title, String message, Context className)
     {
         MsgBox(title, message, className, null);
+
+
     }
 
     /**
@@ -314,6 +283,8 @@ public class Utilities
                     }
                 });
         alertDialog.show();
+
+
     }
 
     /**

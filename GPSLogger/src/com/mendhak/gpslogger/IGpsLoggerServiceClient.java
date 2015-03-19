@@ -18,7 +18,10 @@
 package com.mendhak.gpslogger;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.os.BatteryManager;
 
 interface IGpsLoggerServiceClient
 {
@@ -75,6 +78,5 @@ interface IGpsLoggerServiceClient
      * @param newFileName
      */
     public void onFileName(String newFileName);
-
 
 }

@@ -26,10 +26,13 @@ import android.app.Dialog;
 import android.content.*;
 import android.location.Location;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 import android.view.*;
+import android.webkit.WebView;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -61,6 +64,8 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
      * General all purpose handler used for updating the UI from threads.
      */
     private static Intent serviceIntent;
+    public static TelephonyManager tm;
+    public static Intent batteryIntent;
     private GpsLoggingService loggingService;
 
     /**
@@ -80,9 +85,9 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             GpsLoggingService.SetServiceClient(GpsMainActivity.this);
 
 
-            Button buttonSinglePoint = (Button) findViewById(R.id.buttonSinglePoint);
+            //Button buttonSinglePoint = (Button) findViewById(R.id.buttonSinglePoint);
 
-            buttonSinglePoint.setOnClickListener(GpsMainActivity.this);
+            //buttonSinglePoint.setOnClickListener(GpsMainActivity.this);
 
             if (Session.isStarted())
             {
@@ -92,7 +97,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                 }
                 else
                 {
-                    SetMainButtonChecked(true);
+                    SetMainButtonChecked(false);
                     SetSinglePointButtonEnabled(false);
                 }
 
@@ -100,7 +105,15 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             }
 
             // Form setup - toggle button, display existing location info
+            //////////////////added/////////////////////
+            GetPreferences();
+            SetSinglePointButtonEnabled(false);
+            loggingService.SetupAutoSendTimers();
+            loggingService.StartLogging();
+            /////////////////////////////////////////////
             ToggleButton buttonOnOff = (ToggleButton) findViewById(R.id.buttonOnOff);
+            buttonOnOff.setChecked(true);
+            buttonOnOff.setEnabled(false);
             buttonOnOff.setOnCheckedChangeListener(GpsMainActivity.this);
         }
     };
@@ -119,8 +132,13 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
         Utilities.LogInfo("GPSLogger started");
 
+        tm = (TelephonyManager) this.getSystemService(TELEPHONY_SERVICE);
+        batteryIntent = registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         setContentView(R.layout.main);
-
+        String url ="http://digital-dragons.net/marque.html";
+        WebView view =(WebView) this.findViewById(R.id.webView1);
+        view.getSettings().setJavaScriptEnabled(true);
+        view.loadUrl(url);
         // Moved to onResume to update the list of loggers
         //GetPreferences();
 
@@ -185,7 +203,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
 
         Utilities.LogDebug("GpsMainActivity.onPause");
-        StopAndUnbindServiceIfRequired();
+        //StopAndUnbindServiceIfRequired();
         super.onPause();
     }
 
@@ -194,7 +212,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
 
         Utilities.LogDebug("GpsMainActivity.onDestroy");
-        StopAndUnbindServiceIfRequired();
+        //StopAndUnbindServiceIfRequired();
         super.onDestroy();
 
     }
@@ -206,7 +224,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
         Utilities.LogDebug("GpsMainActivity.onCheckedChanged");
 
-        if (isChecked)
+        if (true)
         {
             GetPreferences();
             SetSinglePointButtonEnabled(false);
@@ -229,9 +247,9 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
         if (!Session.isStarted())
         {
-            SetMainButtonEnabled(false);
+            SetMainButtonEnabled(true);
             loggingService.StartLogging();
-            Session.setSinglePointMode(true);
+            Session.setSinglePointMode(false);
         }
         else if (Session.isStarted() && Session.isSinglePointMode())
         {
@@ -244,8 +262,9 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
     public void SetSinglePointButtonEnabled(boolean enabled)
     {
-        Button buttonSinglePoint = (Button) findViewById(R.id.buttonSinglePoint);
-        buttonSinglePoint.setEnabled(enabled);
+       // Button buttonSinglePoint = (Button) findViewById(R.id.buttonSinglePoint);
+        //buttonSinglePoint.setEnabled(enabled);
+        ;
     }
 
     public void SetMainButtonEnabled(boolean enabled)
@@ -836,7 +855,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         TextView txtSpeed = (TextView) findViewById(R.id.txtSpeed);
 
         TextView txtSatellites = (TextView) findViewById(R.id.txtSatellites);
-        TextView txtDirection = (TextView) findViewById(R.id.txtDirection);
+        //TextView txtDirection = (TextView) findViewById(R.id.txtDirection);
         TextView txtAccuracy = (TextView) findViewById(R.id.txtAccuracy);
         TextView txtDistance = (TextView) findViewById(R.id.txtDistanceTravelled);
 
@@ -846,7 +865,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         tvAltitude.setText("");
         txtSpeed.setText("");
         txtSatellites.setText("");
-        txtDirection.setText("");
+        //txtDirection.setText("");
         txtAccuracy.setText("");
         txtDistance.setText("");
         Session.setPreviousLocationInfo(null);
@@ -910,7 +929,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
             TextView txtSpeed = (TextView) findViewById(R.id.txtSpeed);
 
             TextView txtSatellites = (TextView) findViewById(R.id.txtSatellites);
-            TextView txtDirection = (TextView) findViewById(R.id.txtDirection);
+            //TextView txtDirection = (TextView) findViewById(R.id.txtDirection);
             TextView txtAccuracy = (TextView) findViewById(R.id.txtAccuracy);
             TextView txtTravelled = (TextView) findViewById(R.id.txtDistanceTravelled);
             String providerName = loc.getProvider();
@@ -998,12 +1017,13 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
                 direction = Utilities.GetBearingDescription(bearingDegrees, getApplicationContext());
 
-                txtDirection.setText(direction + "(" + String.valueOf(Math.round(bearingDegrees))
-                        + getString(R.string.degree_symbol) + ")");
+                //txtDirection.setText(direction + "(" + String.valueOf(Math.round(bearingDegrees))
+                  //      + getString(R.string.degree_symbol) + ")");
             }
             else
             {
-                txtDirection.setText(R.string.not_applicable);
+               // txtDirection.setText(R.string.not_applicable);
+                ;
             }
 
             if (!Session.isUsingGps())
@@ -1143,4 +1163,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
         Utilities.HideProgress();
     }
+
+
+
 }

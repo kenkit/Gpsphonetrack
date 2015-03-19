@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/scroll" android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+    android:fillViewport="false">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="fill_parent" android:layout_height="wrap_content"
                   android:orientation="vertical">
@@ -22,18 +23,18 @@
             </TableRow>
             <TableRow android:background="#333333" android:layout_margin="1dip">
                 <TextView android:textStyle="bold" android:text="@string/txt_latitude"
-                          android:padding="3dip" android:textSize="17sp"/>
+                          android:padding="3dip" android:textSize="14sp"/>
                 <TextView android:id="@+id/txtLatitude" android:gravity="left"
                           android:padding="3dip" android:textColor="#e8a317"
-                          android:textStyle="bold" android:textSize="18sp"/>
+                          android:textStyle="bold" android:textSize="14sp"/>
             </TableRow>
 
             <TableRow android:background="#333333" android:layout_margin="1dip">
                 <TextView android:textStyle="bold" android:text="@string/txt_longitude"
-                          android:padding="3dip" android:textSize="17sp"/>
+                          android:padding="3dip" android:textSize="13sp"/>
                 <TextView android:id="@+id/txtLongitude" android:gravity="left"
                           android:padding="3dip" android:textColor="#e8a317"
-                          android:textStyle="bold" android:textSize="18sp"/>
+                          android:textStyle="bold" android:textSize="14sp"/>
             </TableRow>
 
             <TableRow android:background="#333333" android:layout_margin="1dip">
@@ -50,12 +51,7 @@
                           android:padding="3dip"/>
             </TableRow>
 
-            <TableRow android:background="#333333" android:layout_margin="1dip">
-                <TextView android:id="@+id/lblDirection" android:textStyle="bold"
-                          android:text="@string/txt_direction" android:padding="3dip"/>
-                <TextView android:id="@+id/txtDirection" android:gravity="left"
-                          android:padding="3dip"/>
-            </TableRow>
+
 
             <TableRow android:background="#333333" android:layout_margin="1dip">
                 <TextView android:id="@+id/lblSatellites" android:textStyle="bold"
@@ -89,14 +85,15 @@
                 android:tag="Stop" android:text="Stop" />
             -->
             <ToggleButton android:id="@+id/buttonOnOff"
-                          android:layout_width="fill_parent" android:layout_height="wrap_content"
+                          android:layout_width="fill_parent" android:layout_height="50px"
                           android:textOn="@string/btn_stop_logging" android:textOff="@string/btn_start_logging"/>
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent"
                       android:layout_height="wrap_content">
-            <Button android:id="@+id/buttonSinglePoint" android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/btn_single_point"/>
+
+
+
+
         </LinearLayout>
 
         <TableLayout android:id="@+id/TableSummary"
@@ -152,8 +149,14 @@
                           android:paddingLeft="3dip" android:textSize="9dip" android:textStyle="italic"
                           android:layout_height="fill_parent"/>
 
+
             </TableRow>
 
+                <WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/webView1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80px"
+                    />
 
         </TableLayout>
 

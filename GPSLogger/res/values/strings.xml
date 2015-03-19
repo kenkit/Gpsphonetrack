@@ -69,8 +69,7 @@
 
 
 
-    <string name="gpsprovider_unavailable">No GPS provider available. Please check your location settings and enable a
-        location provider.
+    <string name="gpsprovider_unavailable">You have to enable Gps on this device.
     </string>
     <string name="started">Started</string>
     <string name="providername_using">&#160;&#160;&#160;&#160;(Using %s)</string>

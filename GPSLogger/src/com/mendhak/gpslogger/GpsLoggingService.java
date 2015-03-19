@@ -397,20 +397,20 @@ public class GpsLoggingService extends Service implements IActionListener
     public void StopLogging()
     {
         Utilities.LogDebug("GpsLoggingService.StopLogging");
-        Session.setAddNewTrackSegment(true);
+        //Session.setAddNewTrackSegment(true);
 
         Utilities.LogInfo("Stopping logging");
-        Session.setStarted(false);
+        //Session.setStarted(false);
         // Email log file before setting location info to null
-        AutoSendLogFileOnStop();
-        CancelAlarm();
-        Session.setCurrentLocationInfo(null);
-        stopForeground(true);
+        //AutoSendLogFileOnStop();
+        // CancelAlarm();
+        //Session.setCurrentLocationInfo(null);
+        // stopForeground(true);
 
-        RemoveNotification();
-        StopAlarm();
-        StopGpsManager();
-        StopMainActivity();
+        // RemoveNotification();
+        // StopAlarm();
+        // StopGpsManager();
+        // StopMainActivity();
     }
 
     /**
