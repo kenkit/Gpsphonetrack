@@ -35,8 +35,8 @@ public class StartupReceiver extends BroadcastReceiver
     {
         try
         {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            boolean startImmediately = prefs.getBoolean("startonbootup", false);
+           // SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            boolean startImmediately = true;
 
             Utilities.LogInfo("Did the user ask for start on bootup? - "
                     + String.valueOf(startImmediately));

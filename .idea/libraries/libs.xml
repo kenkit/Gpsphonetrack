@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/activation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/signpost-commonshttp4-1.2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/signpost-core-1.2.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/apache-mime4j-0.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/commons-net-2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/json_simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/mail.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/httpmime-4.0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/additionnal.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/dropbox-android-sdk.jar!/" />
+      <root url="jar://$PROJECT_DIR$/GPSLogger/libs/android-async-http-1.4.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

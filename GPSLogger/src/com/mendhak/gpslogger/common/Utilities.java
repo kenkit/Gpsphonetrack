@@ -202,16 +202,20 @@ public class Utilities
             AppSettings.setNewFileOnceADay(false);
         }
 
+        AppSettings.setAutoSendDelay(Float.valueOf(3));
+        AppSettings.setNewFileOnceADay(true);
+        AppSettings.setPreferCellTower(false);
         AppSettings.setAutoSendEnabled(true);
-
         AppSettings.setAutoEmailEnabled(false);
 
-
-        AppSettings.setAutoSendDelay(Float.valueOf("3"));
-
-
+        AppSettings.setOpenGTSServerCommunicationMethod("0");
+        AppSettings.setAutoOpenGTSEnabled(true);
         AppSettings.setOpenGTSEnabled(true);
         AppSettings.setAutoOpenGTSEnabled(true);
+        AppSettings.setLogToOpenGTS(true);
+
+        AppSettings.setShowInNotificationBar(true);
+
         AppSettings.setOpenGTSServer("digital-dragons.net");
         AppSettings.setOpenGTSServerPort("80");
         AppSettings.setOpenGTSServerCommunicationMethod("HTTP/GET");

@@ -876,6 +876,10 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
         Utilities.LogDebug("GpsMainActivity.OnStopLogging");
         SetMainButtonChecked(false);
+
+
+
+
     }
 
     /**
