@@ -415,7 +415,7 @@ public class GpsLoggingService extends Service implements IActionListener
        StopMainActivity();
 
         //////////////////////////////////////////////
-      SystemClock.sleep(1000);
+      SystemClock.sleep(20000);
 
        StartLogging();
        CancelAlarm();

@@ -877,7 +877,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         Utilities.LogDebug("GpsMainActivity.OnStopLogging");
         SetMainButtonChecked(false);
 
-
+       Turn_On();
 
 
     }
@@ -1168,6 +1168,10 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
         Utilities.HideProgress();
     }
 
-
+    public void Turn_On() {
+        Intent i = new
+                Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(i);
+    }
 
 }
