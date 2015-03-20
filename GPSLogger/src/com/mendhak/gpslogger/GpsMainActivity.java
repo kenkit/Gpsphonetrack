@@ -56,6 +56,8 @@ import com.mendhak.gpslogger.senders.opengts.OpenGTSActivity;
 import java.io.File;
 import java.util.*;
 
+
+
 public class GpsMainActivity extends Activity implements OnCheckedChangeListener,
         IGpsLoggerServiceClient, View.OnClickListener, IActionListener
 {
@@ -66,6 +68,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     private static Intent serviceIntent;
     public static TelephonyManager tm;
     public static Intent batteryIntent;
+    public static boolean mute= true;
     private GpsLoggingService loggingService;
 
     /**
@@ -876,7 +879,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
         Utilities.LogDebug("GpsMainActivity.OnStopLogging");
         SetMainButtonChecked(false);
-
+        if (mute)
        Turn_On();
 
 
@@ -1169,9 +1172,13 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     }
 
     public void Turn_On() {
-        Intent i = new
-                Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(i);
+        if (mute) {
+            Intent i = new
+                    Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+          startActivity(i);
+            //startActivityForResult(i, 1);
+            mute=false;
+        }
     }
 
 }

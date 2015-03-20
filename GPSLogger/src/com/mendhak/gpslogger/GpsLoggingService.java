@@ -415,14 +415,22 @@ public class GpsLoggingService extends Service implements IActionListener
        StopMainActivity();
 
         //////////////////////////////////////////////
-      SystemClock.sleep(20000);
 
-       StartLogging();
+
+        count++;
+        if (count>=5)
+        {
+            GpsMainActivity.mute=true;
+            count =0;
+        }
+
+        SystemClock.sleep(5000);
+        StartLogging();
        CancelAlarm();
        RemoveNotification();
 
     }
-
+    public static int count=0;
     /**
      * Manages the notification in the status bar
      */
