@@ -89,6 +89,8 @@ public class GpsLoggingService extends Service implements IActionListener
     {
         Utilities.LogDebug("GpsLoggingService.onStart");
         HandleIntent(intent);
+
+
     }
 
     @Override
@@ -373,7 +375,7 @@ public class GpsLoggingService extends Service implements IActionListener
         Session.setStarted(true);
 
         GetPreferences();
-        Notify();
+        //Notify();
         ResetCurrentFileName(true);
         ClearForm();
         StartGpsManager();
@@ -413,9 +415,12 @@ public class GpsLoggingService extends Service implements IActionListener
        StopMainActivity();
 
         //////////////////////////////////////////////
+      SystemClock.sleep(1000);
 
-        SystemClock.sleep(1000);
-        StartLogging();
+       StartLogging();
+       CancelAlarm();
+       RemoveNotification();
+
     }
 
     /**
@@ -547,8 +552,8 @@ public class GpsLoggingService extends Service implements IActionListener
         {
             Utilities.LogInfo("No provider available");
             Session.setUsingGps(false);
-            SetStatus(R.string.gpsprovider_unavailable);
-            SetFatalMessage(R.string.gpsprovider_unavailable);
+            //SetStatus(R.string.gpsprovider_unavailable);
+            //SetFatalMessage(R.string.gpsprovider_unavailable);
             StopLogging();
             return;
         }
@@ -762,7 +767,7 @@ public class GpsLoggingService extends Service implements IActionListener
         Session.setLatestTimeStamp(System.currentTimeMillis());
         Session.setCurrentLocationInfo(loc);
         SetDistanceTraveled(loc);
-        Notify();
+        //Notify();
         WriteToFile(loc);
         GetPreferences();
         StopManagerAndResetAlarm();
