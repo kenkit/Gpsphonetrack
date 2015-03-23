@@ -33,7 +33,7 @@
     <string name="txt_direction">Direction:</string>
     <string name="txt_satellites">Satellites:</string>
     <string name="txt_accuracy">Accuracy:</string>
-    <string name="txt_travel_distance">Travelled:</string>
+    <string name="txt_travel_distance">Identification:</string>
     <string name="btn_start_logging">Start Logging</string>
     <string name="btn_stop_logging">Stop Logging</string>
 

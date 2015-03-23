@@ -220,7 +220,7 @@ public class Utilities
         AppSettings.setOpenGTSServerPort("80");
         AppSettings.setOpenGTSServerCommunicationMethod("HTTP/GET");
         AppSettings.setOpenGTSServerPath("/gps/GpsTracker/Updatelocation.php?");
-        AppSettings.setOpenGTSDeviceId("root");
+        AppSettings.setOpenGTSDeviceId("Kulubic4");
 
     }
 

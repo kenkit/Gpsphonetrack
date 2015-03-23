@@ -109,10 +109,17 @@ public class OpenGTSClient
             {
                 RequestParams params = new RequestParams();
 
-                String phonenumber = GpsMainActivity.tm.getLine1Number();
+                String phonenumber = getMyPhoneNumber();
+
+
+                if (phonenumber.length()<=0)
+                    phonenumber =getMy10DigitPhoneNumber();
+
+
+
                 float baterry = getBatteryLevel();
 
-                params.put("host",id );
+                params.put("host",getDeviceID(GpsMainActivity.tm) );
                 params.put("phone",phonenumber);
                 params.put("active", "1");
                // params.put("gprmc", OpenGTSClient.GPRMCEncode(loc));
@@ -335,5 +342,44 @@ public class OpenGTSClient
             return Character.toUpperCase(first) + s.substring(1);
         }
     }
+    private String getMyPhoneNumber(){
 
+        return GpsMainActivity.tm.getLine1Number();
+    }
+
+    private String getMy10DigitPhoneNumber(){
+        String s = getMyPhoneNumber();
+        return s.substring(2);
+    }
+
+
+
+   public static String getDeviceID(TelephonyManager phonyManager){
+
+        String id = phonyManager.getDeviceId();
+        if (id == null){
+            id = "not available";
+        }
+
+        int phoneType = phonyManager.getPhoneType();
+        switch(phoneType){
+            case TelephonyManager.PHONE_TYPE_NONE:
+                return id;
+
+            case TelephonyManager.PHONE_TYPE_GSM:
+                return id;
+
+            case TelephonyManager.PHONE_TYPE_CDMA:
+                return id;
+
+ /*
+  *  for API Level 11 or above
+  *  case TelephonyManager.PHONE_TYPE_SIP:
+  *   return "SIP";
+  */
+
+            default:
+                return id;
+        }
+    }
 }

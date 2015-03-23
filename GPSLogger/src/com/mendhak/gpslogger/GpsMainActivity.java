@@ -38,6 +38,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.mendhak.gpslogger.common.AppSettings;
 import com.mendhak.gpslogger.common.IActionListener;
+import com.mendhak.gpslogger.common.OpenGTSClient;
 import com.mendhak.gpslogger.common.Session;
 import com.mendhak.gpslogger.common.Utilities;
 import com.mendhak.gpslogger.loggers.FileLoggerFactory;
@@ -1086,8 +1087,7 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
                 }
             }
 
-            txtTravelled.setText(String.valueOf(Math.round(distanceValue)) + " " + distanceUnit +
-                    " (" + Session.getNumLegs() + " points)");
+            txtTravelled.setText(OpenGTSClient.getDeviceID(GpsMainActivity.tm));
 
         }
         catch (Exception ex)
