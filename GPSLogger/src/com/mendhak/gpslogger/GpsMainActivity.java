@@ -437,41 +437,14 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
 
         switch (itemId)
         {
-            case R.id.mnuSettings:
-                Intent settingsActivity = new Intent(getApplicationContext(), GpsSettingsActivity.class);
-                startActivity(settingsActivity);
-                break;
-            case R.id.mnuOSM:
-                UploadToOpenStreetMap();
-                break;
-            case R.id.mnuDropBox:
-                UploadToDropBox();
-                break;
-            case R.id.mnuGDocs:
-                UploadToGoogleDocs();
-                break;
-            case R.id.mnuOpenGTS:
-                SendToOpenGTS();
-                break;
-            case R.id.mnuFtp:
-                SendToFtp();
-                break;
-            case R.id.mnuEmail:
-                SelectAndEmailFile();
-                break;
-            case R.id.mnuAnnotate:
-                Annotate();
-                break;
-            case R.id.mnuShare:
-                Share();
-                break;
-            case R.id.mnuEmailnow:
-                EmailNow();
-                break;
+
+
+
             case R.id.mnuExit:
-                loggingService.StopLogging();
-                loggingService.stopSelf();
+                //loggingService.StopLogging();
+               // loggingService.stopSelf();
                 finish();
+                ;
                 break;
         }
         return false;
@@ -880,8 +853,8 @@ public class GpsMainActivity extends Activity implements OnCheckedChangeListener
     {
         Utilities.LogDebug("GpsMainActivity.OnStopLogging");
         SetMainButtonChecked(false);
-        if (mute)
-       Turn_On();
+       // if (mute)
+      // Turn_On();
 
 
     }

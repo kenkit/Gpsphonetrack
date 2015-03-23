@@ -70,7 +70,8 @@
                 <TextView android:id="@+id/lblDistanceTravelled" android:textStyle="bold"
                           android:text="@string/txt_travel_distance" android:padding="3dip"/>
                 <TextView android:id="@+id/txtDistanceTravelled" android:gravity="left"
-                          android:padding="3dip"/>
+                          android:padding="3dip"
+                    android:textColor="#ffffed11" />
             </TableRow>
         </TableLayout>
 
